@@ -2,7 +2,15 @@
 
 Starting and Solution code for CC OAuth project.
 
-Requires a GitHub account.
+**Requires a GitHub account**
+
+## Packages
+- ejs
+- express
+- express-partials
+- express-session
+- passport
+- passport-github2
 
 ## Off-Platform Steps to create an OAuth Application
 
