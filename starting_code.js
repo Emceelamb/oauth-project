@@ -1,8 +1,5 @@
 const express = require('express');
 const partials = require('express-partials')
-const passport = require('passport');
-const session = require('express-session')
-const GitHubStrategy = require('passport-github2').Strategy;
 
 const app = express();
 
