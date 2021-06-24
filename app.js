@@ -1,22 +1,30 @@
+/* 
+ * Package Imports
+*/
+
 const express = require('express');
-const partials = require('express-partials')
+const partials = require('express-partials');
 const passport = require('passport');
-const session = require('express-session')
+const session = require('express-session');
 const GitHubStrategy = require('passport-github2').Strategy;
 
 const app = express();
 
+
 /*
- * Variables
+ * Variable Declarations
 */
 
 const PORT = 3000;
+
 const GITHUB_CLIENT_ID = "<GITHUB CLIENT ID>";
 const GITHUB_CLIENT_SECRET = "<GITHUB CLIENT SECRET>";
 
+
 /*
- * GitHubStrategy
+ * Passport Configurations
 */
+
 
 passport.use(new GitHubStrategy({
     clientID: GITHUB_CLIENT_ID,
@@ -31,10 +39,6 @@ passport.use(new GitHubStrategy({
   })
 )
 
-/*
- * Passport session setup
-*/
-
 passport.serializeUser((user, done) => {
   done(null, user);
 });
@@ -42,7 +46,6 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((user, done) => {
   done(null, user);
 });
-
 
 
 /*
@@ -56,10 +59,12 @@ app.use(express.json());
 
 app.use(express.static(__dirname + '/public'));
 
-app.use(session({ secret: 'topsecret', resave: false, saveUninitialized: false}));
+app.use(session({ secret: 'codecademy', resave: false, saveUninitialized: false}));
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+
 
 /*
  * Routes
@@ -77,14 +82,14 @@ app.get('/login', (req, res) => {
   res.render('login', { user: req.user });
 })
 
-app.get('/auth/github',
-  passport.authenticate('github', { scope: [ 'user' ] })
-);
-
 app.get('/logout', (req, res) => {
   req.logout();
   res.redirect('/');
 });
+
+app.get('/auth/github',
+  passport.authenticate('github', { scope: [ 'user' ] })
+);
 
 app.get('/auth/github/callback',
   passport.authenticate('github', {
@@ -99,7 +104,12 @@ app.get('/auth/github/callback',
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
+/*
+ * ensureAuthenticated Callback Function
+*/
+
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
   res.redirect('/login')
 }
+
