@@ -28,8 +28,8 @@ Starting and Solution code for CC OAuth project.
 
 4. Create New OAuth App with:
   - Application Name: `OAuth Project`
-  - Homepage URL: `localhost:3000`
-  - Authorization `callback URL: http:localhost:3000/auth/callback`
+  - Homepage URL: `http://localhost:3000`
+  - Authorization callback URL: `http://localhost:3000/auth/callback`
 
 ![Register App](screenshots/Register.png)
 
