@@ -11,20 +11,8 @@ const app = express();
 */
 
 const PORT = 3000;
-const GITHUB_CLIENT_ID = "<CLIENT ID>";
-const GITHUB_CLIENT_SECRET = "<CLIENT SECRET>"
-
-/*
- * Passport session setup
-*/
-
-passport.serializeUser((user, done) => {
-  done(null, user);
-});
-
-passport.deserializeUser((obj, done) => {
-  done(null, obj);
-});
+const GITHUB_CLIENT_ID = "<GITHUB CLIENT ID>";
+const GITHUB_CLIENT_SECRET = "<GITHUB CLIENT SECRET>";
 
 /*
  * GitHubStrategy
@@ -42,6 +30,18 @@ passport.use(new GitHubStrategy({
     });
   })
 )
+
+/*
+ * Passport session setup
+*/
+
+passport.serializeUser((user, done) => {
+  done(null, user);
+});
+
+passport.deserializeUser((user, done) => {
+  done(null, user);
+});
 
 
 
@@ -87,10 +87,11 @@ app.get('/logout', (req, res) => {
 });
 
 app.get('/auth/github/callback',
-  passport.authenticate('github', { failureRedirect: '/login' }),
-  (req, res) => {
-    res.redirect('/');
+  passport.authenticate('github', {
+    failureRedirect: '/login',
+    successRedirect: '/'
   })
+)
 
 /*
  * Listener

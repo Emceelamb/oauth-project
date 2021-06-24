@@ -87,11 +87,11 @@ app.get('/logout', (req, res) => {
 });
 
 app.get('/auth/github/callback',
-  passport.authenticate('github', { failureRedirect: '/login' }),
-  (req, res) => {
-    res.redirect('/');
+  passport.authenticate('github', {
+    failureRedirect: '/login',
+    successRedirect: '/'
   })
-
+)
 /*
  * Listener
 */
